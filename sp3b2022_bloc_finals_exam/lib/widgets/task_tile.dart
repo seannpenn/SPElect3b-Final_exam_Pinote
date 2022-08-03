@@ -88,6 +88,7 @@ class TaskTile extends StatelessWidget {
               },
               likeOrDislikeCallback: () {
                 _likeorUnlikeTask(context, task);
+                
               },
               cancelOrDeleteCallback: () {
                 _removeorDeleteTask(context, task);

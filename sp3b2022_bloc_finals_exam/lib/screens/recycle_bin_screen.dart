@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../blocs/bloc_exports.dart';
-import '../models/task.dart';
 import '../widgets/tasks_drawer.dart';
 import '../widgets/tasks_list.dart';
 
@@ -12,11 +11,6 @@ class RecycleBinScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final List<Task> removedTasks = [
-      Task(title: 'Finals exam', description: 'Study for Finals Exam'),
-      Task(title: 'Buy groceries', description: 'Don\'t forget the cheese'),
-    ];
 
     return BlocBuilder<TasksBloc,TasksState>(
       builder: (context, state) {
@@ -33,7 +27,9 @@ class RecycleBinScreen extends StatelessWidget {
                         icon: const Icon(Icons.delete_forever),
                         label: const Text('Delete all tasks'),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        context.read<TasksBloc>().add(DeleteAllTasks());
+                      },
                     ),
                   ],
                 ),
@@ -47,11 +43,11 @@ class RecycleBinScreen extends StatelessWidget {
                 children: [
                   Center(
                     child: Chip(
-                      label: Text('${state.removedtasks.length} Tasks'),
+                      label: Text('${state.removedTasks.length} Tasks'),
                     ),
                   ),
                   const SizedBox(height: 10),
-                  TasksList(tasksList: state.removedtasks),
+                  TasksList(tasksList: state.removedTasks),
                 ],
               ),
             ));

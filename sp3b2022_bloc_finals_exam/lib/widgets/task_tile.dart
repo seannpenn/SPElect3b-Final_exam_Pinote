@@ -1,4 +1,3 @@
-import 'package:bloc_finals_exam/blocs/bloc/tasks_bloc.dart';
 import 'package:bloc_finals_exam/blocs/bloc_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,10 +10,12 @@ class TaskTile extends StatelessWidget {
   const TaskTile({Key? key, required this.task}) : super(key: key);
 
   final Task task;
-  _removeorDeleteTask(BuildContext ctx, Task task){
-    task.isDeleted! ? ctx.read<TasksBloc>().add(DeleteTask(task: task)):
-    ctx.read<TasksBloc>().add(RemoveTask(task: task));
+  _removeorDeleteTask(BuildContext ctx, Task task) {
+    task.isDeleted!
+        ? ctx.read<TasksBloc>().add(DeleteTask(task: task))
+        : ctx.read<TasksBloc>().add(RemoveTask(task: task));
   }
+
   _editTask(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -28,6 +29,10 @@ class TaskTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _likeorUnlikeTask(BuildContext rtx, Task task) {
+    rtx.read<TasksBloc>().add(MarkFavoriteOrUnfavoriteTask(task: task));
   }
 
   @override
@@ -71,16 +76,19 @@ class TaskTile extends StatelessWidget {
           children: [
             Checkbox(
                 value: task.isDone,
-                onChanged: task.isDeleted! ? null : (value) {
-                  context.read<TasksBloc>().add(UpdateTask(task: task));
-                }),
+                onChanged: task.isDeleted!
+                    ? null
+                    : (value) {
+                        context.read<TasksBloc>().add(UpdateTask(task: task));
+                      }),
             PopupMenu(
               task: task,
               editCallback: () {
-                Navigator.pop(context);
                 _editTask(context);
               },
-              likeOrDislikeCallback: () {},
+              likeOrDislikeCallback: () {
+                _likeorUnlikeTask(context, task);
+              },
               cancelOrDeleteCallback: () {
                 _removeorDeleteTask(context, task);
               },

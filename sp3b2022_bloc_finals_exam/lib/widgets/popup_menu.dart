@@ -21,7 +21,7 @@ class PopupMenu extends StatelessWidget {
   List<PopupMenuItem> getActiveTaskMenuItems() {
     return [
       PopupMenuItem(
-        onTap: editCallback,
+        onTap: null,
         child: TextButton.icon(
           onPressed: editCallback,
           icon: const Icon(Icons.edit),
@@ -31,7 +31,7 @@ class PopupMenu extends StatelessWidget {
       PopupMenuItem(
         onTap: likeOrDislikeCallback,
         child: TextButton.icon(
-          onPressed: null,
+          onPressed: likeOrDislikeCallback,
           icon: task.isFavorite == false
               ? const Icon(Icons.bookmark_add_outlined)
               : const Icon(Icons.bookmark_remove_outlined),

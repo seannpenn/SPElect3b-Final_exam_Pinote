@@ -42,7 +42,7 @@ class _TasksDrawerState extends State<TasksDrawer> {
                     leading: const Icon(Icons.folder_special),
                     title: const Text('My Tasks'),
                     trailing: Text(
-                      '${state.allTasks.length} | ${TestData.completedTasks.length}',
+                      '${state.pendingTasks.length} | ${state.completedTasks.length}',
                     ),
                     onTap: () => Navigator.pushReplacementNamed(
                       context,
@@ -59,7 +59,7 @@ class _TasksDrawerState extends State<TasksDrawer> {
                   child: ListTile(
                     leading: const Icon(Icons.delete),
                     title: const Text('Recycle Bin'),
-                    trailing: Text('${state.removedtasks.length}'),
+                    trailing: Text('${state.removedTasks.length}'),
                     onTap: () => Navigator.pushReplacementNamed(
                       context,
                       RecycleBinScreen.path,

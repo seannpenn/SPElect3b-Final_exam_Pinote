@@ -69,7 +69,7 @@ class TaskTile extends StatelessWidget {
             Checkbox(
                 value: task.isDone,
                 onChanged: task.isDeleted! ? null : (value) {
-                  
+                  context.read<TasksBloc>().add(UpdateTask(task: task));
                 }),
             PopupMenu(
               task: task,

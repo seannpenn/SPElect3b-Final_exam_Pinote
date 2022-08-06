@@ -89,15 +89,16 @@ class _AddEditTaskState extends State<AddEditTask> {
                   child: const Text('Cancel'),
                 ),
                 ElevatedButton(
-                  onPressed: _title.isNotEmpty && _description.isNotEmpty
+                  onPressed: _title.isNotEmpty && _description.isNotEmpty && widget.task == null
                       ? () {
                           var task = Task(title: _title, description: _description);
                           context.read<TasksBloc>().add(AddTask(task: task));
                           Navigator.pop(context);
                         }
                       : (){
-                        var task = Task(title: _title, description: _description);
-                        context.read<TasksBloc>().add(UpdateTask(task: task));
+                        var editedTask = Task(title: _title, description: _description);
+                        context.read<TasksBloc>().add(EditTask(newTask: editedTask, oldTask: widget.task!));
+                        Navigator.pop(context);
                       },
                   child: widget.task == null
                       ? const Text('Add')
